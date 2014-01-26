@@ -98,6 +98,7 @@
 	 :recursive t
 	 :publishing-directory "~/publish_html/"
 	 :publishing-function org-publish-attachment)
+
 	("website" :components ("orgfiles" "images" "css"))))
 
 ;; auto indent
