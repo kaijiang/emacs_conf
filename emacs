@@ -10,7 +10,6 @@
 (setq user-full-name "Jiang Kai") 
 (setq user-mail-address "airborne08@gmail.com")
 
-
 (load "my-c-style.el")
 
 ;;; doxymacs.
@@ -44,6 +43,70 @@
 (ac-config-default)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (global-auto-complete-mode 1)
+
+(add-to-list 'load-path "~/.emacs.d/org-mode/lisp")
+(add-to-list 'load-path "~/.emacs.d/org-mode/contrib/lisp")
+(require 'org-install)
+(require 'org-publish)
+
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(add-hook 'org-mode-hook 'turn-on-font-lock)
+(add-hook 'org-mode-hook
+          (lambda () (progn
+                 (setq truncate-lines nil)
+                 (local-unset-key (kbd "<M-up>"))
+                 (local-unset-key (kbd "<M-down>"))
+                 (local-unset-key (kbd "<M-left>"))
+                 (local-unset-key (kbd "<M-right>")))))
+
+(setq org-log-done t)
+
+;; http://orgmode.org/manual/Publishing-options.html
+(setq org-export-have-math nil)
+(setq org-use-sub-superscripts (quote {}))
+(setq org-export-author-info nil)
+(setq org-html-preamble nil)
+(setq org-html-postamble nil)
+;; (setq org-export-html-style-include-default nil)
+(setq org-export-html-style-include-scripts nil)
+(setq org-export-htmlize-output-type 'css)
+(setq org-publish-project-alist
+      '(("orgfiles"
+	 :base-directory "~/org/"
+	 :base-extension "org"
+	 :publishing-directory "~/publish_html"
+	 :publishing-function org-html-publish-to-html
+	 :recursive t
+	 :exclude "PrivatePage.org"   ;; regexp
+	 :headline-levels 3
+;;;	 :section-numbers nil
+;;;	 :with-toc nil
+	 :html-head "<link rel=\"stylesheet\"
+                       href=\"./css/site.css\" type=\"text/css\"/>"
+	 :html-preamble t)
+	
+	("images"
+	 :base-directory "~/org"
+	 :base-extension "jpg\\|gif\\|png"
+	 :recursive t
+	 :publishing-directory "~/publish_html/"
+	 :publishing-function org-publish-attachment)
+	
+	("css"
+	 :base-directory "~/org"
+	 :base-extension "css"
+	 :recursive t
+	 :publishing-directory "~/publish_html/"
+	 :publishing-function org-publish-attachment)
+	("website" :components ("orgfiles" "images" "css"))))
+
+;; auto indent
+;;(setq org-startup-indented t)
+(global-set-key "\C-coi" 'org-indent-mode) ;; toggle indent mode.
+(autoload 'iimage-mode "iimage" "Support Inline image minor mode." t)
+(autoload 'turn-on-iimage-mode "iimage" "Turn on Inline image minor mode." t)
+(global-set-key "\C-cii" 'iimage-mode) ;; toggle image mode.
+
 (setq ac-modes
       (append ac-modes '(org-mode 
                          objc-mode 
@@ -55,6 +118,14 @@
                          text-mode
                          makefile-mode
                          autoconf-mode)))
+(setq org-export-have-math nil)
+(setq org-use-sub-superscripts (quote {}))
+(setq org-export-author-info nil)
+(setq org-html-preamble nil)
+(setq org-html-postamble nil)
+;; (setq org-export-html-style-include-default nil)
+(setq org-export-html-style-include-scripts nil)
+(setq org-export-htmlize-output-type 'css)
 
 ;; ;;; python-mode.
 ;; ;; sudo apt-get install python-mode
