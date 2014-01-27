@@ -63,7 +63,6 @@
 
 ;; http://orgmode.org/manual/Publishing-options.html
 (setq org-export-have-math nil)
-(setq org-use-sub-superscripts (quote {}))
 (setq org-export-author-info nil)
 (setq org-html-preamble nil)
 (setq org-html-postamble nil)
