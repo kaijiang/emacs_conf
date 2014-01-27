@@ -76,6 +76,7 @@
 	 :base-extension "org"
 	 :publishing-directory "~/publish_html"
 	 :publishing-function org-html-publish-to-html
+         :with-sub-superscript {}
 	 :recursive t
 	 :exclude "PrivatePage.org"   ;; regexp
 	 :headline-levels 3
