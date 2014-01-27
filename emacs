@@ -1,4 +1,3 @@
-
 ;;; .emacs
 
 ;;; common code.
